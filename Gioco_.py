@@ -1,5 +1,6 @@
 import arcade
 import os
+import random
 
 
 
@@ -47,15 +48,46 @@ class MyGame(arcade.Window):
 
         self.playerSpriteList.append(self.macchina)
         
-        self.background = arcade.load_texture("immagini/Countryside.webp")
+        self.background = arcade.load_texture("immagini/Background1.png")
             
 
     def on_draw(self):
-        arcade.draw_texture_rect(self.background, arcade.types.Viewport( 0, 0, MyGame.SCREEN_WIDTH, MyGame.SCREEN_HEIGHT) )
+        if self.background == arcade.load_texture("immagini/Background1.png"):
+            arcade.draw_texture_rect(self.background, arcade.types.Viewport( 0, -75, MyGame.SCREEN_WIDTH, MyGame.SCREEN_HEIGHT + 75) )
+
+        else:
+            arcade.load_texture.random.choice([
+                arcade.load_texture("immagini/Background1.png"),
+                arcade.load_texture("immagini/Background2.png"),
+                arcade.load_texture("immagini/Background3.png"),
+                arcade.load_texture("immagini/Background4.png"),
+                arcade.load_texture("immagini/Background5.png"),
+            ])
+
+
+
+        # elif self.background == arcade.load_texture("immagini/Background2.png"):
+        #     self.background = arcade.load_texture("immagini/Background2.png")
+        #     arcade.draw_texture_rect(self.background, arcade.types.Viewport( 0, -75, MyGame.SCREEN_WIDTH, MyGame.SCREEN_HEIGHT + 75) )
+
+        # elif self.background == arcade.load_texture("immagini/Background3.png"):
+        #     self.background = arcade.load_texture("immagini/Background3.png")
+        #     arcade.draw_texture_rect(self.background, arcade.types.Viewport( 0, -75, MyGame.SCREEN_WIDTH, MyGame.SCREEN_HEIGHT + 75) )
+
+        # elif self.background == arcade.load_texture("immagini/Background4.png"):
+        #     self.background = arcade.load_texture("immagini/Background4.png")
+        #     arcade.draw_texture_rect(self.background, arcade.types.Viewport( 0, -75, MyGame.SCREEN_WIDTH, MyGame.SCREEN_HEIGHT + 75) )
+        
+        # elif self.background == arcade.load_texture("immagini/Background5.png"):
+        #     self.background = arcade.load_texture("immagini/Background5.png")
+        #     arcade.draw_texture_rect(self.background, arcade.types.Viewport( 0, -75, MyGame.SCREEN_WIDTH, MyGame.SCREEN_HEIGHT + 75) )
+
+
+
 
         self.playerSpriteList.draw()
 
-        
+    
     def on_update(self, deltaTime):
         self.clear()
 
