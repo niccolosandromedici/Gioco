@@ -1,21 +1,35 @@
 import arcade
 import os
-# from arcade import *
+
+
 
 class MyGame(arcade.Window):
 
     def __init__(self, width, height, title):
-        super().__init__(width, height, title, fullscreen=True)
+        super().__init__(width, height, title)
 
         self.macchina = None
         self.playerSpriteList = arcade.SpriteList()
         
+        self.velocita = 4
+        self.velocita_angle = 1
+        
 
         self.setup()
 
+        file_path = os.path.dirname(os.path.abspath(__file__))
+        os.chdir(file_path)
+
+        self.up_pressed = False
+        self.down_pressed = False
+        self.left_pressed = False
+        self.right_pressed = False
+
+
     def on_draw(self):
-        self.clear()
         self.playerSpriteList.draw()
+
+
 
    
 
@@ -32,86 +46,92 @@ class MyGame(arcade.Window):
         self.playerSpriteList.append(self.macchina)
         
         
-        
-        
+    
+
+    
+
+            #  if key == arcade.key.W:
+            #     self.macchina.angle -= 10
+            #  elif key == arcade.key.UP:
+            #      self.macchina.angle -= 10
+            #  elif key == arcade.key.A:
+            #      self.macchina.center_x -= 10
+            #  elif key == arcade.key.LEFT:
+            #      self.macchina.center_x -= 10
+            #  elif key == arcade.key.S:
+            #      self.macchina.angle += 10
+            #  elif key == arcade.key.DOWN:
+            #      self.macchina.angle += 10
+            #  elif key == arcade.key.D:
+            #      self.macchina.center_x += 10
+            #  elif key == arcade.key.RIGHT:
+            #      self.macchina.center_x += 10
+
 
     def on_draw(self):
         self.playerSpriteList.draw()
         
     def on_update(self, deltaTime):
+        self.clear()
+
+        # Calcola movimento in base ai tasti premuti
         change_x = 0
         change_y = 0
+        change_angle = 0
         
         if self.up_pressed:
-            change_y += self.velocita
+            change_angle -= self.velocita_angle
         if self.down_pressed:
-            change_y -= self.velocita
+            change_angle += self.velocita_angle
         if self.left_pressed:
             change_x -= self.velocita
         if self.right_pressed:
             change_x += self.velocita
+        
+        # Applica movimento
+        self.macchina.center_x += change_x
+        self.macchina.center_y += change_y
+        self.macchina.angle += change_angle
 
-
-
-    #def on_key_press(self, key, modifiers):
-    #        if key == arcade.key.W:
-    #           self.macchina.angle -= 10
-    #        elif key == arcade.key.UP:
-    #            self.macchina.angle -= 10
-    #        elif key == arcade.key.A:
-    #            self.macchina.center_x -= 10
-    #        elif key == arcade.key.LEFT:
-    #            self.macchina.center_x -= 10
-    #        elif key == arcade.key.S:
-    #            self.macchina.angle += 10
-    #        elif key == arcade.key.DOWN:
-    #            self.macchina.angle += 10
-    #        elif key == arcade.key.D:
-    #            self.macchina.center_x += 10
-    #        elif key == arcade.key.RIGHT:
-    #            self.macchina.center_x += 10
-
-
-
-    def on_key_press(self, tasto, modificatori):
-        if tasto in (arcade.key.UP, arcade.key.W):
+    def on_key_press(self, key, modifiers):
+        if key == arcade.key.W or key == arcade.key.UP:
             self.up_pressed = True
-        elif tasto in (arcade.key.DOWN, arcade.key.S):
+        elif key == arcade.key.S or key == arcade.key.DOWN:
             self.down_pressed = True
-        elif tasto in (arcade.key.LEFT, arcade.key.A):
+        elif key == arcade.key.A or key == arcade.key.LEFT:
             self.left_pressed = True
-        elif tasto in (arcade.key.RIGHT, arcade.key.D):
+        elif key == arcade.key.D or key == arcade.key.RIGHT:
             self.right_pressed = True
 
 
-
-
-    def on_key_release(self, tasto, modificatori):
-        """Gestisce il rilascio dei tasti"""
-        if tasto in (arcade.key.UP, arcade.key.W):
+    def on_key_release(self, key, modifiers):
+        if key == arcade.key.W or key == arcade.key.UP:
             self.up_pressed = False
-        elif tasto in (arcade.key.DOWN, arcade.key.S):
+        elif key == arcade.key.S or key == arcade.key.DOWN:
             self.down_pressed = False
-        elif tasto in (arcade.key.LEFT, arcade.key.A):
+        elif key == arcade.key.A or key == arcade.key.LEFT:
             self.left_pressed = False
-        elif tasto in (arcade.key.RIGHT, arcade.key.D):
+        elif key == arcade.key.D or key == arcade.key.RIGHT:
             self.right_pressed = False
 
+         # Limita movimento dentro lo schermo
+        if self.macchina.center_x < 0:
+             self.macchina.center_x = 0
+        elif self.macchina.center_x > self.width:
+             self.macchina.center_x = self.width
 
-
-
+        if self.macchina.center_y < 0:
+             self.macchina.center_y = 0
+        elif self.macchina.center_y > self.height:
+             self.macchina.center_y = self.height
+        
 
 
 def main():
     game = MyGame(
-        600, 600, "Il mio giochino"
+        600, 600, "Hill Climb Racing"
     )
     arcade.run()
-
-
-
-    
-                                     
 
 
 if __name__ == "__main__":
