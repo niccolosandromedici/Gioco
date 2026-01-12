@@ -4,6 +4,8 @@ import os
 
 
 class MyGame(arcade.Window):
+    SCREEN_WIDTH = 1000
+    SCREEN_HEIGHT = 600
 
     def __init__(self, width, height, title):
         super().__init__(width, height, title)
@@ -45,31 +47,14 @@ class MyGame(arcade.Window):
 
         self.playerSpriteList.append(self.macchina)
         
-        
-    
-
-    
-
-            #  if key == arcade.key.W:
-            #     self.macchina.angle -= 10
-            #  elif key == arcade.key.UP:
-            #      self.macchina.angle -= 10
-            #  elif key == arcade.key.A:
-            #      self.macchina.center_x -= 10
-            #  elif key == arcade.key.LEFT:
-            #      self.macchina.center_x -= 10
-            #  elif key == arcade.key.S:
-            #      self.macchina.angle += 10
-            #  elif key == arcade.key.DOWN:
-            #      self.macchina.angle += 10
-            #  elif key == arcade.key.D:
-            #      self.macchina.center_x += 10
-            #  elif key == arcade.key.RIGHT:
-            #      self.macchina.center_x += 10
-
+        self.background = arcade.load_texture("immagini/Countryside.webp")
+            
 
     def on_draw(self):
+        arcade.draw_texture_rect(self.background, arcade.types.Viewport( 0, 0, MyGame.SCREEN_WIDTH, MyGame.SCREEN_HEIGHT) )
+
         self.playerSpriteList.draw()
+
         
     def on_update(self, deltaTime):
         self.clear()
@@ -129,7 +114,7 @@ class MyGame(arcade.Window):
 
 def main():
     game = MyGame(
-        600, 600, "Hill Climb Racing"
+        MyGame.SCREEN_WIDTH, MyGame.SCREEN_HEIGHT, "Hill Climb Racing"
     )
     arcade.run()
 
