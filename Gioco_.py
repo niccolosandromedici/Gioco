@@ -56,6 +56,8 @@ class MyGame(arcade.Window):
 
     def on_draw(self):
         self.clear()
+        arcade.draw_texture_rect(self.background, arcade.types.Viewport( 0, -75, MyGame.SCREEN_WIDTH, MyGame.SCREEN_HEIGHT + 75) )
+
 
         # if self.background == arcade.load_texture("immagini/Background1.png"):
         #     arcade.draw_texture_rect(self.background, arcade.types.Viewport( 0, -75, MyGame.SCREEN_WIDTH, MyGame.SCREEN_HEIGHT + 75) )
