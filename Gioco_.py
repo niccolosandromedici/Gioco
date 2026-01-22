@@ -17,7 +17,7 @@ class MyGame(arcade.Window):
         self.macchina = None
         self.playerSpriteList = arcade.SpriteList()
         #suono
-        self.suono_motore = arcade.load_sound("./immagini/Vespa_102_Polini.mp3")
+        self.suono_motore = arcade.load_sound("./immagini/audio_motore.mp3")
         #scala
         self.tile_scaling : int | float = 0.5
         #fisica
@@ -71,23 +71,22 @@ class MyGame(arcade.Window):
         
         self.macchina = arcade.Sprite("./immagini/78614.png")
 
-        self.macchina.center_x : int | float = 100
-        self.macchina.center_y : int | float = 250
-        self.macchina.scale_x : int | float = 1
-        self.macchina.scale_y : int | float = 1
-        self.macchina.angle : int | float = 0
-
+        self.macchina.center_x : int = 100
+        self.macchina.center_y : int = 250
+        self.macchina.scale_x : int = 1
+        self.macchina.scale_y : int = 1
+        self.macchina.angle : int = 0
         #self.camera = arcade.Camera2D()
         
 
         self.playerSpriteList.append(self.macchina)
         
-        self.background = arcade.load_texture("immagini/Background1.png")
+        self.background = arcade.load_texture("immagini/Immagine sfondo.png")
             
 
     def on_draw(self):
         self.clear()
-        arcade.draw_texture_rect(self.background, arcade.types.Viewport( 0, 0, MyGame.SCREEN_WIDTH, MyGame.SCREEN_HEIGHT) )
+        arcade.draw_texture_rect(self.background, arcade.types.Viewport( 0, 0, 4500, 600) )
 
         self.playerSpriteList.draw()
         self.wall_list.draw()
@@ -128,12 +127,10 @@ class MyGame(arcade.Window):
             self.down_pressed = True
         elif key == arcade.key.A or key == arcade.key.LEFT:
             self.left_pressed = True
-            self.suono_motore.set_volume(1.0)
-            arcade.play_sound(self.suono_motore)
+            #arcade.play_sound(self.suono_motore)
         elif key == arcade.key.D or key == arcade.key.RIGHT:
             self.right_pressed = True
-            self.suono_motore.set_volume(1.0)
-            arcade.play_sound(self.suono_motore)
+            #arcade.play_sound(self.suono_motore)
         elif key == arcade.key.SPACE:  
             if self.physics_engine.can_jump():
                 self.macchina.change_y = self.jump_speed
@@ -148,10 +145,10 @@ class MyGame(arcade.Window):
             self.down_pressed = False
         elif key == arcade.key.A or key == arcade.key.LEFT:
             self.left_pressed = False
-            self.suono_motore.set_volume(0.0)
+            #self.suono_motore.set_volume(0.0)
         elif key == arcade.key.D or key == arcade.key.RIGHT:
             self.right_pressed = False
-            self.suono_motore.set_volume(0.0)
+            #self.suono_motore.set_volume(0.0)
 
         # # Limita movimento dentro lo schermo
         # if self.macchina.center_x < 0:
