@@ -16,7 +16,8 @@ class MyGame(arcade.Window):
 
         self.macchina = None
         self.playerSpriteList = arcade.SpriteList()
-
+        #suono
+        self.suono_motore = arcade.load_sound("./immagini/")
         #scala
         self.tile_scaling : int | float = 0.5
         #fisica
@@ -78,7 +79,6 @@ class MyGame(arcade.Window):
 
         #self.camera = arcade.Camera2D()
         
-        
 
         self.playerSpriteList.append(self.macchina)
         
@@ -99,7 +99,6 @@ class MyGame(arcade.Window):
         self.physics_engine.update()
         
         #movimento camera
-        
         #self.camera.position = self.macchina.center_x
         #self.camera.position = self.macchina.center_y
 
@@ -129,13 +128,10 @@ class MyGame(arcade.Window):
             self.down_pressed = True
         elif key == arcade.key.A or key == arcade.key.LEFT:
             self.left_pressed = True
+            #suono motore
         elif key == arcade.key.D or key == arcade.key.RIGHT:
             self.right_pressed = True
-        elif key == arcade.key.F:
-            if fullscreen == False:
-                fullscreen = True
-            else:
-                fullscreen = False
+            #suono motore
         elif key == arcade.key.SPACE:  
             if self.physics_engine.can_jump():
                 self.macchina.change_y = self.jump_speed
@@ -153,16 +149,16 @@ class MyGame(arcade.Window):
         elif key == arcade.key.D or key == arcade.key.RIGHT:
             self.right_pressed = False
 
-        # Limita movimento dentro lo schermo
-        if self.macchina.center_x < 0:
-              self.macchina.center_x = 0
-        elif self.macchina.center_x > self.width:
-              self.macchina.center_x = self.width
+        # # Limita movimento dentro lo schermo
+        # if self.macchina.center_x < 0:
+        #       self.macchina.center_x = 0
+        # elif self.macchina.center_x > self.width:
+        #       self.macchina.center_x = self.width
 
-        if self.macchina.center_y < 0:
-              self.macchina.center_y = 0
-        elif self.macchina.center_y > self.height:
-              self.macchina.center_y = self.height
+        # if self.macchina.center_y < 0:
+        #       self.macchina.center_y = 0
+        # elif self.macchina.center_y > self.height:
+        #       self.macchina.center_y = self.height
         
 
 
