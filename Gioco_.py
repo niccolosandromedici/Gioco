@@ -90,12 +90,17 @@ class MyGame(arcade.Window):
 
         self.playerSpriteList.draw()
         self.wall_list.draw()
+        self.camera.use()
 
     
     def on_update(self, deltaTime):
         
         self.physics_engine.update()
         
+        #movimento camera
+        
+        self.camera.position = self.macchina.center_x
+        self.camera.position = self.macchina.center_y
 
         # Calcola movimento in base ai tasti premuti
         change_x : int | float = 0
