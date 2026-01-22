@@ -17,7 +17,7 @@ class MyGame(arcade.Window):
         self.macchina = None
         self.playerSpriteList = arcade.SpriteList()
         #suono
-        self.suono_motore = arcade.load_sound("./immagini/")
+        self.suono_motore = arcade.load_sound("./immagini/Vespa_102_Polini.mp3")
         #scala
         self.tile_scaling : int | float = 0.5
         #fisica
@@ -128,10 +128,10 @@ class MyGame(arcade.Window):
             self.down_pressed = True
         elif key == arcade.key.A or key == arcade.key.LEFT:
             self.left_pressed = True
-            #suono motore
+            arcade.play_sound(self.suono_motore)
         elif key == arcade.key.D or key == arcade.key.RIGHT:
             self.right_pressed = True
-            #suono motore
+            arcade.play_sound(self.suono_motore)
         elif key == arcade.key.SPACE:  
             if self.physics_engine.can_jump():
                 self.macchina.change_y = self.jump_speed
