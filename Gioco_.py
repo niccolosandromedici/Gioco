@@ -128,9 +128,11 @@ class MyGame(arcade.Window):
             self.down_pressed = True
         elif key == arcade.key.A or key == arcade.key.LEFT:
             self.left_pressed = True
+            self.suono_motore.set_volume(1.0)
             arcade.play_sound(self.suono_motore)
         elif key == arcade.key.D or key == arcade.key.RIGHT:
             self.right_pressed = True
+            self.suono_motore.set_volume(1.0)
             arcade.play_sound(self.suono_motore)
         elif key == arcade.key.SPACE:  
             if self.physics_engine.can_jump():
@@ -146,8 +148,10 @@ class MyGame(arcade.Window):
             self.down_pressed = False
         elif key == arcade.key.A or key == arcade.key.LEFT:
             self.left_pressed = False
+            self.suono_motore.set_volume(0.0)
         elif key == arcade.key.D or key == arcade.key.RIGHT:
             self.right_pressed = False
+            self.suono_motore.set_volume(0.0)
 
         # # Limita movimento dentro lo schermo
         # if self.macchina.center_x < 0:
