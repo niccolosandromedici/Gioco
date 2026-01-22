@@ -7,8 +7,8 @@ from arcade import physics_engines
 
 
 class MyGame(arcade.Window):
-    SCREEN_WIDTH = 900
-    SCREEN_HEIGHT = 600
+    SCREEN_WIDTH : int = 900
+    SCREEN_HEIGHT : int = 600
     
 
     def __init__(self, width, height, title, ):
@@ -17,8 +17,8 @@ class MyGame(arcade.Window):
         self.macchina = None
         self.playerSpriteList = arcade.SpriteList()
         
-        self.velocita = 4
-        self.velocita_angle = 1
+        self.velocita : int | float = 4
+        self.velocita_angle : int| float = 1
         
 
         self.setup()
@@ -26,10 +26,10 @@ class MyGame(arcade.Window):
         file_path = os.path.dirname(os.path.abspath(__file__))
         os.chdir(file_path)
 
-        self.up_pressed = False
-        self.down_pressed = False
-        self.left_pressed = False
-        self.right_pressed = False
+        self.up_pressed : bool = False
+        self.down_pressed : bool = False
+        self.left_pressed : bool = False
+        self.right_pressed : bool = False
 
        
    
@@ -39,13 +39,12 @@ class MyGame(arcade.Window):
         
         self.macchina = arcade.Sprite("./immagini/78614.png")
 
-        self.macchina.center_x = 100
-        self.macchina.center_y = 200
-        self.macchina.scale_x = 1
-        self.macchina.scale_y = 1
-        self.macchina.angle = 0
+        self.macchina.center_x : int | float = 100
+        self.macchina.center_y : int | float = 200
+        self.macchina.scale_x : int | float = 1
+        self.macchina.scale_y : int | float = 1
+        self.macchina.angle : int | float = 0
 
-        #self.macchina.fisica = arcade.
 
         self.playerSpriteList.append(self.macchina)
         
@@ -65,9 +64,9 @@ class MyGame(arcade.Window):
         
 
         # Calcola movimento in base ai tasti premuti
-        change_x = 0
-        change_y = 0
-        change_angle = 0
+        change_x : int | float = 0
+        change_y : int | float = 0
+        #change_angle : int | float = 0
         
         #if self.up_pressed:
         #    change_angle -= self.velocita_angle
