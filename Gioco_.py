@@ -63,7 +63,7 @@ class MyGame(arcade.Window):
         # it will not be moved.
         self.physics_engine = arcade.PhysicsEnginePlatformer(self.macchina, walls = self.wall_list, gravity_constant = self.gravity)
 
-        self.camera = None
+        #self.camera = None
 
     def setup(self):
         
@@ -75,7 +75,7 @@ class MyGame(arcade.Window):
         self.macchina.scale_y : int | float = 1
         self.macchina.angle : int | float = 0
 
-        self.camera = arcade.Camera2D()
+        #self.camera = arcade.Camera2D()
         
         
 
@@ -90,7 +90,7 @@ class MyGame(arcade.Window):
 
         self.playerSpriteList.draw()
         self.wall_list.draw()
-        self.camera.use()
+        #self.camera.use()
 
     
     def on_update(self, deltaTime):
@@ -99,8 +99,8 @@ class MyGame(arcade.Window):
         
         #movimento camera
         
-        self.camera.position = self.macchina.center_x
-        self.camera.position = self.macchina.center_y
+        #self.camera.position = self.macchina.center_x
+        #self.camera.position = self.macchina.center_y
 
         # Calcola movimento in base ai tasti premuti
         change_x : int | float = 0
