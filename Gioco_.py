@@ -16,9 +16,9 @@ class MyGame(arcade.Window):
     def __init__(self, width, height, title, ):
         super().__init__(width, height, title, fullscreen = False)
 
-        self.macchina = None
-        self.moneta = None
-        self.playerSpriteList = arcade.SpriteList()
+        self.macchina_list = arcade.SpriteList()
+        self.moneta_list = arcade.SpriteList()
+        
         #suono
         self.suono_motore = arcade.load_sound("./immagini/audio_motore.mp3")
         #scala
@@ -77,15 +77,15 @@ class MyGame(arcade.Window):
     def setup(self):
         
         self.macchina = arcade.Sprite("./immagini/78614.png")
-
         self.macchina.center_x : int = 100
         self.macchina.center_y : int = 250
         self.macchina.scale_x : int = 1
         self.macchina.scale_y : int = 1
         self.macchina.angle : int = 0
+        self.macchina_list.append(self.macchina)
 
-        self.moneta_list = arcade.SpriteList()
-        self.moneta = arcade.Sprite("./immagini/moneta.jpg")
+        #self.moneta_list = arcade.SpriteList()
+        #self.moneta = arcade.Sprite("./immagini/moneta.jpg")
         
         self.crea_monete(tipo = "oro")
 
@@ -94,8 +94,8 @@ class MyGame(arcade.Window):
         self.camera = arcade.Camera2D()
         
 
-        self.playerSpriteList.append(self.macchina)
-        self.playerSpriteList.append(self.moneta)
+        #self.playerSpriteList.append(self.macchina)
+        #self.playerSpriteList.append(self.moneta)
 
         self.background = arcade.load_texture("immagini/Sfondo.jpg")
         
@@ -110,19 +110,6 @@ class MyGame(arcade.Window):
             font_name = "Arial", # O il nome del tuo font caricato
             anchor_x = "center" # Allinea il testo a sinistra
         )
-
-    def on_draw(self):
-        self.clear()
-
-        
-
-        arcade.draw_texture_rect(self.background, arcade.types.Viewport( self.camera.position[0] - MyGame.SCREEN_WIDTH/2, self.camera.position[1] - MyGame.SCREEN_HEIGHT/3.2, MyGame.SCREEN_WIDTH + 100, MyGame.SCREEN_HEIGHT + 100) )
-
-        self.testo_score.draw()
-
-        self.playerSpriteList.draw()
-        self.wall_list.draw()
-        self.camera.use()
 
     
     def crea_monete(self, tipo):
@@ -143,29 +130,43 @@ class MyGame(arcade.Window):
         print("[",self.macchina.center_x,"][", self.macchina.center_y,"] = > moneta creata in: [",next_x, "] [", next_y, "]")
 
 
-        while tipo == "oro" and len(self.moneta_list) < 5 :
-            if tipo == "oro":
-                self.moneta = arcade.Sprite("./immagini/moneta.jpg")
-                self.moneta.center_x = next_x
-                self.moneta.center_y = next_y
-                self.moneta.scale = 0.2
-                self.moneta_list.append(self.moneta)
-            else:
-                pass
+        
+
+        if tipo == "oro":
+            self.moneta = arcade.Sprite("./immagini/moneta.jpg")
+            self.moneta.center_x = next_x
+            self.moneta.center_y = next_y
+            self.moneta.scale = 0.2
+            self.moneta.tipo = "oro"
+            self.moneta_list.append(self.moneta)
+
+        if tipo == "diamante":
+            pass
             # Implementare altri tipi di monete o oggetti se necessario
 
-        # def rimuovi_diamante(self, Sprite_moneta):
-        #     Sprite_moneta.remove_from_sprite_lists()
-        #     #print("Golden Cookie scomparso!")
-        #
+        
     def rimuovi_moneta(self, Sprite_moneta):
         Sprite_moneta.remove_from_sprite_lists()
         #print("Moneta scomparsa!")
-        
+    #def rimuovi_diamante(self, Sprite_moneta):
+       #     Sprite_moneta.remove_from_sprite_lists()
+       #     #print("Golden Cookie scomparso!")
 
 
 
 
+    def on_draw(self):
+        self.clear()
+
+        arcade.draw_texture_rect(self.background, arcade.types.Viewport( self.camera.position[0] - MyGame.SCREEN_WIDTH/2, self.camera.position[1] - MyGame.SCREEN_HEIGHT/3.2, MyGame.SCREEN_WIDTH + 100, MyGame.SCREEN_HEIGHT + 100) )
+
+        self.macchina_list.draw()
+        self.moneta_list.draw()
+
+        self.wall_list.draw()
+        self.camera.use()
+        self.testo_score.draw()
+    
 
 
 
@@ -239,17 +240,17 @@ class MyGame(arcade.Window):
             if collisioni[0].tipo == "oro":
                 self.conta_monete_prese += 1
                 self.testo_score.text = f"Punteggio: {self.conta_monete_prese}"
-                collisioni[0].rimuovi_moneta()
+                collisioni[0].remove_from_sprite_lists()
                 #print("moneta presa! Punteggio:", self.conta_monete_prese)
 
             #da implementare con dei diamanti o altro
             # elif collisioni[0].tipo == "golden":
             #     self.conta_monete_prese += 100
             #     self.testo_score.text = f"Punteggio: {self.conta_monete_prese}"
-            #     collisioni[0].rimuovi_moneta()
+            #     collisioni[0].remove_from_sprite_lists()
             #     #print("Golden Biscotto mangiato! Punteggio:", self.conta_monete_prese)
             # # Creazione nuovi biscotti in base al punteggio
-            self.crea_monete()
+            self.crea_monete(tipo = "oro")
 
 
 
@@ -265,6 +266,9 @@ class MyGame(arcade.Window):
         #       self.macchina.center_y = 0
         # elif self.macchina.center_y > self.height:
         #       self.macchina.center_y = self.height
+
+    def aggiorna_punteggio(self, nuovo_punteggio):
+        self.testo_score.text = f"Punteggio: {self.conta_monete_prese}"
         
 
 
