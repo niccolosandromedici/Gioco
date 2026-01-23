@@ -84,19 +84,16 @@ class MyGame(arcade.Window):
         self.macchina.angle : int = 0
         self.macchina_list.append(self.macchina)
 
-        #self.moneta_list = arcade.SpriteList()
-        #self.moneta = arcade.Sprite("./immagini/moneta.jpg")
-        
-        self.crea_monete(tipo = "oro")
+        #crea monete iniziali
+        for i in range(5):
+            self.crea_monete(tipo = "oro")
 
 
         # Set up the camera
         self.camera = arcade.Camera2D()
         
 
-        #self.playerSpriteList.append(self.macchina)
-        #self.playerSpriteList.append(self.moneta)
-
+        #carica sfondo
         self.background = arcade.load_texture("immagini/Sfondo.jpg")
         
 
