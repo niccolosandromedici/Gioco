@@ -25,7 +25,7 @@ class MyGame(arcade.Window):
         self.tile_scaling : int | float = 0.5
         #fisica
         self.gravity : int | float = 1
-        #self.jump_speed : int | float = 20
+        self.jump_speed : int | float = 20
 
         #movimento
         self.velocita : int | float = 4
@@ -111,26 +111,23 @@ class MyGame(arcade.Window):
     
     def crea_monete(self, tipo):
 
-        print("[" + str(self.conta_monete_prese) + "] == > Creazione monete...")
+        #print("[" + str(self.conta_monete_prese) + "] == > Creazione monete...")
 
 
         next_x = self.macchina.center_x
 
         while abs(next_x - self.macchina.center_x) < 100 :
-            next_x = (MyGame.MONETA_WIDTH/2) + (self.macchina.center_x + random.randint(100, (MyGame.SCREEN_WIDTH - MyGame.MONETA_WIDTH)))%(MyGame.SCREEN_WIDTH - MyGame.MONETA_WIDTH)
+            next_x = ((MyGame.MONETA_WIDTH/2) + (self.macchina.center_x + random.randint(100, (MyGame.SCREEN_WIDTH - MyGame.MONETA_WIDTH)))%(MyGame.SCREEN_WIDTH - MyGame.MONETA_WIDTH))+100
 
-        next_y = self.macchina.center_y + 80
-
-        # while abs(next_y - self.macchina.center_y) < 100 :
-        #     next_y = (MyGame.MONETA_HEIGHT/2) + (self.macchina.center_y + random.randint(100, (MyGame.SCREEN_HEIGHT - MyGame.MONETA_HEIGHT)))%(MyGame.SCREEN_HEIGHT - MyGame.MONETA_HEIGHT)
-
-        print("[",self.macchina.center_x,"][", self.macchina.center_y,"] = > moneta creata in: [",next_x, "] [", next_y, "]")
+        next_y: int = 330          
+        
+        #print("[",self.macchina.center_x,"][", self.macchina.center_y,"] = > moneta creata in: [",next_x, "] [", next_y, "]")
 
 
         
 
         if tipo == "oro":
-            self.moneta = arcade.Sprite("./immagini/moneta.jpg")
+            self.moneta = arcade.Sprite("./immagini/Moneta_senza_sfondo.png")
             self.moneta.center_x = next_x
             self.moneta.center_y = next_y
             self.moneta.scale = 0.2
@@ -207,9 +204,9 @@ class MyGame(arcade.Window):
             self.right_pressed = True
             #if not self.suono_motore.is_playing:
             #    arcade.play_sound(self.suono_motore)
-        #elif key == arcade.key.SPACE:  
-        #    if self.physics_engine.can_jump():
-        #        self.macchina.change_y = self.jump_speed
+        # elif key == arcade.key.SPACE:  
+        #     if self.physics_engine.can_jump():
+        #         self.macchina.change_y = self.jump_speed
 
 
 
