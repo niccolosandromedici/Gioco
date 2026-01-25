@@ -31,10 +31,12 @@ class MyGame(arcade.Window):
         self.velocita : int | float = 4
         self.velocita_angle : int| float = 1
         
-        #conta monete
+        #conta monete e diamanti
         self.conta_monete_prese : int = 0
+        self.conta_diamanti_presi : int = 0
 
-        self.testo_score : str | bool = None
+        self.testo_score_monete : str | bool = None
+        self.testo_score_diamanti : str | bool = None
 
         self.setup()
 
@@ -97,9 +99,9 @@ class MyGame(arcade.Window):
         self.background = arcade.load_texture("immagini/Sfondo.jpg")
         
 
-        #scrivi testo punteggio
-        self.testo_score = arcade.Text( #testo del punteggio
-            text="Punteggio: " + str(self.conta_monete_prese),
+        #scrivi testo punteggio delle monete
+        self.testo_score_monete = arcade.Text( #testo del punteggio
+            text="Monete: " + str(self.conta_monete_prese),
             x = self.macchina.center_x, # Centro dello schermo
             y = self.macchina.center_y + 350, # Vicino in alto
             color = arcade.color.BLACK,
@@ -107,6 +109,18 @@ class MyGame(arcade.Window):
             font_name = "Arial", # O il nome del tuo font caricato
             anchor_x = "center" # Allinea il testo a sinistra
         )
+
+        #scrivi testo punteggio dei diamanti
+        self.testo_score_diamanti = arcade.Text( #testo del punteggio
+            text="Diamanti: " + str(self.conta_diamanti_presi),
+            x = self.macchina.center_x, # Centro dello schermo
+            y = self.macchina.center_y + 300, # Vicino in alto
+            color = arcade.color.BLACK,
+            font_size = 24,
+            font_name = "Arial", # O il nome del tuo font caricato
+            anchor_x = "center" # Allinea il testo a sinistra
+        )
+
 
     
     def crea_monete(self, tipo):
@@ -117,7 +131,7 @@ class MyGame(arcade.Window):
         next_x = self.macchina.center_x
 
         while abs(next_x - self.macchina.center_x) < 100 :
-            next_x = ((MyGame.MONETA_WIDTH/2) + (self.macchina.center_x + random.randint(100, (MyGame.SCREEN_WIDTH - MyGame.MONETA_WIDTH)))%(MyGame.SCREEN_WIDTH - MyGame.MONETA_WIDTH))+100
+            next_x = ((MyGame.MONETA_WIDTH/2) + (self.macchina.center_x + random.randint(100, (MyGame.SCREEN_WIDTH - MyGame.MONETA_WIDTH*2)))%(MyGame.SCREEN_WIDTH - MyGame.MONETA_WIDTH))
 
         next_y: int = 330          
         
@@ -135,16 +149,20 @@ class MyGame(arcade.Window):
             self.moneta_list.append(self.moneta)
 
         if tipo == "diamante":
-            pass
-            # Implementare altri tipi di monete o oggetti se necessario
+            self.moneta = arcade.Sprite("./immagini/Diamante.png")
+            self.moneta.center_x = next_x
+            self.moneta.center_y = next_y
+            self.moneta.scale = 0.2
+            self.moneta.tipo = "diamante"
+            self.moneta_list.append(self.moneta)
 
         
     def rimuovi_moneta(self, Sprite_moneta):
         Sprite_moneta.remove_from_sprite_lists()
         #print("Moneta scomparsa!")
-    #def rimuovi_diamante(self, Sprite_moneta):
-       #     Sprite_moneta.remove_from_sprite_lists()
-       #     #print("Golden Cookie scomparso!")
+    def rimuovi_diamante(self, Sprite_moneta):
+        Sprite_moneta.remove_from_sprite_lists()
+        #print("Diamante scomparso!")
 
 
 
@@ -159,8 +177,8 @@ class MyGame(arcade.Window):
 
         self.wall_list.draw()
         self.camera.use()
-        self.testo_score.draw()
-    
+        self.testo_score_monete.draw()
+        self.testo_score_diamanti.draw()
 
 
 
@@ -233,23 +251,19 @@ class MyGame(arcade.Window):
         if len(collisioni) > 0: # Vuol dire che il personaggio si è scontrato con qualcosa
             if collisioni[0].tipo == "oro":
                 self.conta_monete_prese += 1
-                self.testo_score.text = f"Punteggio: {self.conta_monete_prese}"
+                self.testo_score_monete.text = f"Monete: {self.conta_monete_prese}"
                 collisioni[0].remove_from_sprite_lists()
                 self.crea_monete(tipo = "oro")
                 #print("moneta presa! Punteggio:", self.conta_monete_prese)
 
             #da implementare con dei diamanti o altro
-            # elif collisioni[0].tipo == "golden":
-            #     self.conta_monete_prese += 100
-            #     self.testo_score.text = f"Punteggio: {self.conta_monete_prese}"
-            #     collisioni[0].remove_from_sprite_lists()
-            #     self.crea_monete(tipo = "diamante")
-            #     #print("Golden Biscotto mangiato! Punteggio:", self.conta_monete_prese)
-           
+            elif collisioni[0].tipo == "diamante":
+                self.conta_diamanti_presi += 1
+                self.testo_score_diamanti.text = f"Diamanti: {self.conta_diamanti_presi}"
+                collisioni[0].remove_from_sprite_lists()
+                self.crea_monete(tipo = "diamante")
+                #print("Diamante preso! Punteggio:", self.conta_diamanti_presi)
             
-
-
-
 
         # # Limita movimento dentro lo schermo
         # if self.macchina.center_x < 0:
