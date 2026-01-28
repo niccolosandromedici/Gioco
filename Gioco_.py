@@ -28,7 +28,7 @@ class MyGame(arcade.Window):
         self.jump_speed : int | float = 20
 
         #movimento
-        self.velocita : int | float = 4
+        self.velocita : int | float | bool = None
         self.velocita_angle : int| float = 1
         
         #conta monete e diamanti
@@ -72,19 +72,17 @@ class MyGame(arcade.Window):
         # platforms parameter that is intended for moving platforms.
         # If a platform is supposed to move, and is added to the walls list,
         # it will not be moved.
-        self.physics_engine = arcade.PhysicsEnginePlatformer(self.macchina, walls = self.wall_list, gravity_constant = self.gravity)
+        self.physics_engine = arcade.PhysicsEnginePlatformer(self.macchina1, walls = self.wall_list, gravity_constant = self.gravity)
+        #self.physics_engine = arcade.PhysicsEnginePlatformer(self.macchina2, walls = self.wall_list, gravity_constant = self.gravity)
+        #self.physics_engine = arcade.PhysicsEnginePlatformer(self.macchina3, walls = self.wall_list, gravity_constant = self.gravity)
 
+        
         
 
     def setup(self):
-        
-        self.macchina = arcade.Sprite("./immagini/78614.png")
-        self.macchina.center_x : int = 100
-        self.macchina.center_y : int = 250
-        self.macchina.scale_x : int = 1
-        self.macchina.scale_y : int = 1
-        self.macchina.angle : int = 0
-        self.macchina_list.append(self.macchina)
+
+        #crea macchina
+        self.crea_macchina(tipo = "macchina1")
 
         #crea monete iniziali
         for i in range(5):
@@ -102,8 +100,8 @@ class MyGame(arcade.Window):
         #scrivi testo punteggio delle monete
         self.testo_score_monete = arcade.Text( #testo del punteggio
             text="Monete: " + str(self.conta_monete_prese),
-            x = self.macchina.center_x, # Centro dello schermo
-            y = self.macchina.center_y + 350, # Vicino in alto
+            x = self.macchina1.center_x, # Centro dello schermo
+            y = self.macchina1.center_y + 350, # Vicino in alto
             color = arcade.color.BLACK,
             font_size = 24,
             font_name = "Arial", # O il nome del tuo font caricato
@@ -113,13 +111,43 @@ class MyGame(arcade.Window):
         #scrivi testo punteggio dei diamanti
         self.testo_score_diamanti = arcade.Text( #testo del punteggio
             text="Diamanti: " + str(self.conta_diamanti_presi),
-            x = self.macchina.center_x, # Centro dello schermo
-            y = self.macchina.center_y + 300, # Vicino in alto
+            x = self.macchina1.center_x, # Centro dello schermo
+            y = self.macchina1.center_y + 300, # Vicino in alto
             color = arcade.color.BLACK,
             font_size = 24,
             font_name = "Arial", # O il nome del tuo font caricato
             anchor_x = "center" # Allinea il testo a sinistra
         )
+
+
+    def crea_macchina(self, tipo):
+        #if tipo == "macchina1":
+        self.macchina1 = arcade.Sprite("./immagini/78614.png")
+        self.macchina1.center_x : int = 100
+        self.macchina1.center_y : int = 250
+        self.macchina1.scale_x : int = 1
+        self.macchina1.scale_y : int = 1
+        self.macchina1.angle : int = 0
+        self.velocita : int | float = 5
+        self.macchina_list.append(self.macchina1)
+        # elif tipo == "macchina2":
+        #     self.macchina2 = arcade.Sprite("./immagini/Car_blue.png")
+        #     self.macchina2.center_x : int = 100
+        #     self.macchina2.center_y : int = 250
+        #     self.macchina2.scale_x : int = 1
+        #     self.macchina2.scale_y : int = 1
+        #     self.macchina2.angle : int = 0
+        #     self.velocita : int | float = 7
+        #     self.macchina_list.append(self.macchina2)
+        # elif tipo == "macchina3":
+        #     self.macchina3 = arcade.Sprite("./immagini/Car_red.png")
+        #     self.macchina3.center_x : int = 100
+        #     self.macchina3.center_y : int = 250
+        #     self.macchina3.scale_x : int = 1
+        #     self.macchina3.scale_y : int = 1
+        #     self.macchina3.angle : int = 0
+        #     self.velocita : int | float = 9
+        #     self.macchina_list.append(self.macchina3)
 
 
     
@@ -128,14 +156,14 @@ class MyGame(arcade.Window):
         #print("[" + str(self.conta_monete_prese) + "] == > Creazione monete...")
 
 
-        next_x = self.macchina.center_x
+        next_x = self.macchina1.center_x
 
-        while abs(next_x - self.macchina.center_x) < 100 :
-            next_x = ((MyGame.MONETA_WIDTH/2) + (self.macchina.center_x + random.randint(100, (MyGame.SCREEN_WIDTH - MyGame.MONETA_WIDTH*2)))%(MyGame.SCREEN_WIDTH - MyGame.MONETA_WIDTH))
+        while abs(next_x - self.macchina1.center_x) < 100 :
+            next_x = ((MyGame.MONETA_WIDTH/2) + (self.macchina1.center_x + random.randint(100, (MyGame.SCREEN_WIDTH - MyGame.MONETA_WIDTH)))%(MyGame.SCREEN_WIDTH - MyGame.MONETA_WIDTH))
 
         next_y: int = 330          
         
-        #print("[",self.macchina.center_x,"][", self.macchina.center_y,"] = > moneta creata in: [",next_x, "] [", next_y, "]")
+        #print("[",self.macchina1.center_x,"][", self.macchina1.center_y,"] = > moneta creata in: [",next_x, "] [", next_y, "]")
 
 
         
@@ -187,7 +215,10 @@ class MyGame(arcade.Window):
         self.physics_engine.update()
         
         #movimento camera
-        self.camera.position = self.macchina.position
+        self.camera.position = self.macchina1.position
+        #self.camera.position = self.macchina2.position
+        #self.camera.position = self.macchina3.position
+
         
 
         # Calcola movimento in base ai tasti premuti
@@ -205,9 +236,9 @@ class MyGame(arcade.Window):
             change_x += self.velocita
         
         # Applica movimento
-        self.macchina.center_x += change_x
-        self.macchina.center_y += change_y
-        self.macchina.angle += change_angle
+        self.macchina1.center_x += change_x
+        self.macchina1.center_y += change_y
+        self.macchina1.angle += change_angle
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.W or key == arcade.key.UP:
@@ -224,7 +255,7 @@ class MyGame(arcade.Window):
             #    arcade.play_sound(self.suono_motore)
         # elif key == arcade.key.SPACE:  
         #     if self.physics_engine.can_jump():
-        #         self.macchina.change_y = self.jump_speed
+        #         self.macchina1.change_y = self.jump_speed
 
 
 
@@ -247,7 +278,7 @@ class MyGame(arcade.Window):
 
 
          # Gestione collisioni
-        collisioni = arcade.check_for_collision_with_list(self.macchina, self.moneta_list)        
+        collisioni = arcade.check_for_collision_with_list(self.macchina1, self.moneta_list)        
         if len(collisioni) > 0: # Vuol dire che il personaggio si è scontrato con qualcosa
             if collisioni[0].tipo == "oro":
                 self.conta_monete_prese += 1
@@ -256,7 +287,6 @@ class MyGame(arcade.Window):
                 self.crea_monete(tipo = "oro")
                 #print("moneta presa! Punteggio:", self.conta_monete_prese)
 
-            #da implementare con dei diamanti o altro
             elif collisioni[0].tipo == "diamante":
                 self.conta_diamanti_presi += 1
                 self.testo_score_diamanti.text = f"Diamanti: {self.conta_diamanti_presi}"
