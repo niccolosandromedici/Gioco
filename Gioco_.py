@@ -270,6 +270,10 @@ class MyGame(arcade.Window):
         self.macchina1.center_y += change_y
         self.macchina1.angle += change_angle
 
+        if change_angle > 180:
+            print("dentro if")
+            self.morto()
+
     def on_key_press(self, key, modifiers):
         if key == arcade.key.W or key == arcade.key.UP:
             self.up_pressed = True
@@ -306,18 +310,13 @@ class MyGame(arcade.Window):
             #    arcade.stop_sound(self.suono_motore)
             
 
+    def morto(self):
+        print("dentro morto")
+        self.macchina1.remove_from_sprite_list()
+        print("eseguito remove")
 
 
-        # # Limita movimento dentro lo schermo
-        # if self.macchina.center_x < 0:
-        #       self.macchina.center_x = 0
-        # elif self.macchina.center_x > self.width:
-        #       self.macchina.center_x = self.width
-
-        # if self.macchina.center_y < 0:
-        #       self.macchina.center_y = 0
-        # elif self.macchina.center_y > self.height:
-        #       self.macchina.center_y = self.height
+       
 
     def aggiorna_punteggio(self, nuovo_punteggio):
         self.testo_score.text = f"Punteggio: {self.conta_monete_prese}"
