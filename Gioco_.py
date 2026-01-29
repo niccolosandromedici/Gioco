@@ -270,7 +270,7 @@ class MyGame(arcade.Window):
         self.macchina1.center_y += change_y
         self.macchina1.angle += change_angle
 
-        if change_angle > 180:
+        if self.macchina1.angle > 180:
             print("dentro if")
             self.morto()
 
