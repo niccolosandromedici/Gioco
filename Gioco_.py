@@ -240,6 +240,23 @@ class MyGame(arcade.Window):
         self.macchina1.center_y += change_y
         self.macchina1.angle += change_angle
 
+        # Gestione collisioni
+        collisioni = arcade.check_for_collision_with_list(self.macchina1, self.moneta_list)        
+        if len(collisioni) > 0: # Vuol dire che il personaggio si è scontrato con qualcosa
+            if collisioni[0].tipo == "oro":
+                self.conta_monete_prese += 1
+                self.testo_score_monete.text = f"Monete: {self.conta_monete_prese}"
+                collisioni[0].remove_from_sprite_lists()
+                self.crea_monete(tipo = "oro")
+                #print("moneta presa! Punteggio:", self.conta_monete_prese)
+
+            elif collisioni[0].tipo == "diamante":
+                self.conta_diamanti_presi += 1
+                self.testo_score_diamanti.text = f"Diamanti: {self.conta_diamanti_presi}"
+                collisioni[0].remove_from_sprite_lists()
+                self.crea_monete(tipo = "diamante")
+                #print("Diamante preso! Punteggio:", self.conta_diamanti_presi)
+
     def on_key_press(self, key, modifiers):
         if key == arcade.key.W or key == arcade.key.UP:
             self.up_pressed = True
@@ -277,22 +294,7 @@ class MyGame(arcade.Window):
 
 
 
-         # Gestione collisioni
-        collisioni = arcade.check_for_collision_with_list(self.macchina1, self.moneta_list)        
-        if len(collisioni) > 0: # Vuol dire che il personaggio si è scontrato con qualcosa
-            if collisioni[0].tipo == "oro":
-                self.conta_monete_prese += 1
-                self.testo_score_monete.text = f"Monete: {self.conta_monete_prese}"
-                collisioni[0].remove_from_sprite_lists()
-                self.crea_monete(tipo = "oro")
-                #print("moneta presa! Punteggio:", self.conta_monete_prese)
-
-            elif collisioni[0].tipo == "diamante":
-                self.conta_diamanti_presi += 1
-                self.testo_score_diamanti.text = f"Diamanti: {self.conta_diamanti_presi}"
-                collisioni[0].remove_from_sprite_lists()
-                self.crea_monete(tipo = "diamante")
-                #print("Diamante preso! Punteggio:", self.conta_diamanti_presi)
+        
             
 
         # # Limita movimento dentro lo schermo
