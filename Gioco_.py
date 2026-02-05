@@ -63,7 +63,7 @@ class MyGame(arcade.Window):
             ground = arcade.Sprite(":resources:images/tiles/grassMid.png", scale = self.tile_scaling)
             ground.center_x = x
             ground.center_y = 250
-            ground.angle = random.randint(0, 180)
+            #ground.angle = random.randint(0, 180)
             self.wall_list.append(ground)
         
 
@@ -271,8 +271,10 @@ class MyGame(arcade.Window):
         self.macchina1.center_x += change_x
         self.macchina1.center_y += change_y
 
+        #aggiornamento x delle scritte
         self.testo_score_monete.x += change_x
         self.testo_score_diamanti.x += change_x
+
         if self.macchina1.angle > 180:
             self.morto()
         else:
