@@ -268,9 +268,14 @@ class MyGame(arcade.Window):
         # Applica movimento
         self.macchina1.center_x += change_x
         self.macchina1.center_y += change_y
-        self.macchina1.angle += change_angle
+        if self.macchina1.angle > 180:
+            self.morto()
+        else:
+            self.macchina1.angle += change_angle
 
-        
+
+    def morto():
+        print("morto")
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.W or key == arcade.key.UP:
