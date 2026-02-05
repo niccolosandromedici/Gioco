@@ -63,7 +63,9 @@ class MyGame(arcade.Window):
             ground = arcade.Sprite(":resources:images/tiles/grassMid.png", scale = self.tile_scaling)
             ground.center_x = x
             ground.center_y = 250
+            ground.angle = random.randint(0, 180)
             self.wall_list.append(ground)
+        
 
         for y in range(-10000, 10000, 64):
             start_wall = arcade.Sprite(":resources:images/tiles/grassMid.png", scale = self.tile_scaling)
@@ -268,6 +270,9 @@ class MyGame(arcade.Window):
         # Applica movimento
         self.macchina1.center_x += change_x
         self.macchina1.center_y += change_y
+
+        self.testo_score_monete.x += change_x
+        self.testo_score_diamanti.x += change_x
         if self.macchina1.angle > 180:
             self.morto()
         else:
@@ -290,9 +295,9 @@ class MyGame(arcade.Window):
             self.right_pressed = True
             #if not self.suono_motore.is_playing:
             #    arcade.play_sound(self.suono_motore)
-        # elif key == arcade.key.SPACE:  
-        #      if self.physics_engine.can_jump():
-        #         self.macchina1.change_y = self.jump_speed
+        #elif key == arcade.key.SPACE:  
+        #    if self.physics_engine.can_jump():
+        #        self.macchina1.change_y = self.jump_speed
                 
 
 
