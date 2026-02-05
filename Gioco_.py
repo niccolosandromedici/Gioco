@@ -274,7 +274,7 @@ class MyGame(arcade.Window):
             self.macchina1.angle += change_angle
 
 
-    def morto():
+    def morto(self):
         print("morto")
 
     def on_key_press(self, key, modifiers):
@@ -313,6 +313,7 @@ class MyGame(arcade.Window):
             #    arcade.stop_sound(self.suono_motore)
             
 
+    
 
 
 
