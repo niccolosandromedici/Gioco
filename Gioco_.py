@@ -9,12 +9,12 @@ import random
 class MyGame(arcade.Window):
     SCREEN_WIDTH : int = 900
     SCREEN_HEIGHT : int = 600
-    MONETA_WIDTH : int = 32
-    MONETA_HEIGHT : int = 32
+    COLLEZIONABILI_WIDTH : int = 32
+    COLLEZIONABILI_HEIGHT : int = 32
     
 
-    def __init__(self, width, height, title):
-        super().__init__(width, height, title)
+    def __init__(self, width, height, title, ):
+        super().__init__(width, height, title, fullscreen = False)
 
         self.macchina_list = arcade.SpriteList()
         self.moneta_list = arcade.SpriteList()
@@ -59,11 +59,20 @@ class MyGame(arcade.Window):
 
         # Create the ground
         # This shows using a loop to place multiple sprites horizontally
-        for x in range(-10000, 10000, 64):
+        for x in range(-350, 100000, 64):
             ground = arcade.Sprite(":resources:images/tiles/grassMid.png", scale = self.tile_scaling)
             ground.center_x = x
             ground.center_y = 250
             self.wall_list.append(ground)
+
+        for y in range(-10000, 10000, 64):
+            start_wall = arcade.Sprite(":resources:images/tiles/grassMid.png", scale = self.tile_scaling)
+            start_wall.center_x = -385
+            start_wall.center_y = y
+            self.wall_list.append(start_wall)
+
+
+
 
         # Create a Platformer Physics Engine.
         # This will handle moving our player as well as collisions between
@@ -100,8 +109,8 @@ class MyGame(arcade.Window):
         #scrivi testo punteggio delle monete
         self.testo_score_monete = arcade.Text( #testo del punteggio
             text="Monete: " + str(self.conta_monete_prese),
-            x = self.macchina1.center_x, # Centro dello schermo
-            y = self.macchina1.center_y + 350, # Vicino in alto
+            x = self.macchina1.center_x,
+            y = self.macchina1.center_y + 350,
             color = arcade.color.BLACK,
             font_size = 24,
             font_name = "Arial", # O il nome del tuo font caricato
@@ -111,8 +120,8 @@ class MyGame(arcade.Window):
         #scrivi testo punteggio dei diamanti
         self.testo_score_diamanti = arcade.Text( #testo del punteggio
             text="Diamanti: " + str(self.conta_diamanti_presi),
-            x = self.macchina1.center_x, # Centro dello schermo
-            y = self.macchina1.center_y + 300, # Vicino in alto
+            x = self.macchina1.center_x,
+            y = self.macchina1.center_y + 300, 
             color = arcade.color.BLACK,
             font_size = 24,
             font_name = "Arial", # O il nome del tuo font caricato
@@ -159,7 +168,7 @@ class MyGame(arcade.Window):
         next_x = self.macchina1.center_x
 
         while abs(next_x - self.macchina1.center_x) < 100 :
-            next_x = ((MyGame.MONETA_WIDTH/2) + (self.macchina1.center_x + random.randint(100, (MyGame.SCREEN_WIDTH - MyGame.MONETA_WIDTH)))%(MyGame.SCREEN_WIDTH - MyGame.MONETA_WIDTH))
+            next_x = ((MyGame.COLLEZIONABILI_HEIGHT/2) + (self.macchina1.center_x + random.randint(100, (MyGame.SCREEN_WIDTH - MyGame.COLLEZIONABILI_WIDTH)))%(MyGame.SCREEN_WIDTH - MyGame.COLLEZIONABILI_WIDTH)) + self.macchina1.center_x + 1000
 
         next_y: int = 330          
         
@@ -235,27 +244,33 @@ class MyGame(arcade.Window):
         if self.right_pressed:
             change_x += self.velocita
         
+        # Gestione collisioni tra macchina e collezionabili
+        collisioni_macchina_collezzionabili = arcade.check_for_collision_with_list(self.macchina1, self.moneta_list)        
+        if len(collisioni_macchina_collezzionabili) > 0: # Vuol dire che il personaggio si è scontrato con qualcosa
+            if collisioni_macchina_collezzionabili[0].tipo == "oro":
+                self.conta_monete_prese += 1
+                self.testo_score_monete.text = f"Monete: {self.conta_monete_prese}"
+                collisioni_macchina_collezzionabili[0].remove_from_sprite_lists()
+                self.crea_monete(tipo = "oro")
+                #print("moneta presa! Punteggio:", self.conta_monete_prese)
+            elif collisioni_macchina_collezzionabili[0].tipo == "diamante":
+                self.conta_diamanti_presi += 1
+                self.testo_score_diamanti.text = f"Diamanti: {self.conta_diamanti_presi}"
+                collisioni_macchina_collezzionabili[0].remove_from_sprite_lists()
+                self.crea_monete(tipo = "diamante")
+                #print("Diamante preso! Punteggio:", self.conta_diamanti_presi)
+        # Gestione collisioni tra collezionabili
+        # collisioni_collezionabili = arcade.check_for_collision_with_lists(self.moneta_list(tipo = "oro"), self.moneta_list(tipo = "diamante"))
+        # if len(collisioni_collezionabili) > 0 :
+        #     if collisioni_collezionabili[0]:
+        #         collisioni_collezionabili[0].remove_from_sprite_lists()
+                
         # Applica movimento
         self.macchina1.center_x += change_x
         self.macchina1.center_y += change_y
         self.macchina1.angle += change_angle
 
-        # Gestione collisioni
-        collisioni = arcade.check_for_collision_with_list(self.macchina1, self.moneta_list)        
-        if len(collisioni) > 0: # Vuol dire che il personaggio si è scontrato con qualcosa
-            if collisioni[0].tipo == "oro":
-                self.conta_monete_prese += 1
-                self.testo_score_monete.text = f"Monete: {self.conta_monete_prese}"
-                collisioni[0].remove_from_sprite_lists()
-                self.crea_monete(tipo = "oro")
-                #print("moneta presa! Punteggio:", self.conta_monete_prese)
-
-            elif collisioni[0].tipo == "diamante":
-                self.conta_diamanti_presi += 1
-                self.testo_score_diamanti.text = f"Diamanti: {self.conta_diamanti_presi}"
-                collisioni[0].remove_from_sprite_lists()
-                self.crea_monete(tipo = "diamante")
-                #print("Diamante preso! Punteggio:", self.conta_diamanti_presi)
+        
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.W or key == arcade.key.UP:
@@ -271,8 +286,9 @@ class MyGame(arcade.Window):
             #if not self.suono_motore.is_playing:
             #    arcade.play_sound(self.suono_motore)
         # elif key == arcade.key.SPACE:  
-        #     if self.physics_engine.can_jump():
+        #      if self.physics_engine.can_jump():
         #         self.macchina1.change_y = self.jump_speed
+                
 
 
 
@@ -294,19 +310,6 @@ class MyGame(arcade.Window):
 
 
 
-        
-            
-
-        # # Limita movimento dentro lo schermo
-        # if self.macchina.center_x < 0:
-        #       self.macchina.center_x = 0
-        # elif self.macchina.center_x > self.width:
-        #       self.macchina.center_x = self.width
-
-        # if self.macchina.center_y < 0:
-        #       self.macchina.center_y = 0
-        # elif self.macchina.center_y > self.height:
-        #       self.macchina.center_y = self.height
 
     def aggiorna_punteggio(self, nuovo_punteggio):
         self.testo_score.text = f"Punteggio: {self.conta_monete_prese}"
