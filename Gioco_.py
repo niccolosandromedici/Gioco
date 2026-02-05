@@ -13,8 +13,8 @@ class MyGame(arcade.Window):
     COLLEZIONABILI_HEIGHT : int = 32
     
 
-    def __init__(self, width, height, title, ):
-        super().__init__(width, height, title, fullscreen = False)
+    def __init__(self, width, height, title):
+        super().__init__(width, height, title)
 
         self.macchina_list = arcade.SpriteList()
         self.moneta_list = arcade.SpriteList()
@@ -274,15 +274,16 @@ class MyGame(arcade.Window):
         #aggiornamento x delle scritte
         self.testo_score_monete.x += change_x
         self.testo_score_diamanti.x += change_x
+        self.macchina1.angle += change_angle
 
-        if self.macchina1.angle > 180:
-            self.morto()
-        else:
-            self.macchina1.angle += change_angle
+    #     if self.macchina1.angle > 180:
+    #         self.morto()
+    #     else:
+    #         self.macchina1.angle += change_angle
 
 
-    def morto(self):
-        print("morto")
+    # def morto(self):
+    #     print("morto")
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.W or key == arcade.key.UP:
