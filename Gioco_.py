@@ -245,12 +245,12 @@ class MyGame(arcade.Window):
             if self.macchina1.angle > 180 or self.macchina1.angle < -180:
                 return print("morto")
             else:
-                change_angle -= self.velocita_angle
+                change_angle += self.velocita_angle
         if self.down_pressed:
             if self.macchina1.angle > 180 or self.macchina1.angle < -180:
                 return print("morto")
             else:
-                change_angle += self.velocita_angle
+                change_angle -= self.velocita_angle
         if self.left_pressed:
             change_x -= self.velocita
         if self.right_pressed:
@@ -299,7 +299,7 @@ class MyGame(arcade.Window):
             if self.macchina1.angle > 180 or self.macchina1.angle < -180:
                 return print("MORTO")
             else:
-                self.up_pressed = True
+                self.down_pressed = True
         elif key == arcade.key.A or key == arcade.key.LEFT:
             self.left_pressed = True
             #if not self.suono_motore.is_playing:
@@ -326,7 +326,7 @@ class MyGame(arcade.Window):
             if self.macchina1.angle > 180:
                 print("MORTO")
             else:
-                self.down_pressed = False
+                self.up_pressed = False
         elif key == arcade.key.A or key == arcade.key.LEFT:
             self.left_pressed = False
             #if self.suono_motore.is_playing:
