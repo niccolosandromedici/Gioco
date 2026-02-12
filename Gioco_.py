@@ -242,6 +242,7 @@ class MyGame(arcade.Window):
         
         if self.up_pressed:
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             if self.macchina1.angle > 180:
                 print("morto")
             else:
@@ -259,6 +260,16 @@ class MyGame(arcade.Window):
                 return print("morto")
 >>>>>>> Stashed changes
             else:
+=======
+            if self.macchina1.angle > 180 or self.macchina1.angle < -180:
+                return print("morto")
+            else:
+                change_angle -= self.velocita_angle
+        if self.down_pressed:
+            if self.macchina1.angle > 180 or self.macchina1.angle < -180:
+                return print("morto")
+            else:
+>>>>>>> Stashed changes
                 change_angle += self.velocita_angle
         if self.left_pressed:
             change_x -= self.velocita
@@ -296,6 +307,7 @@ class MyGame(arcade.Window):
     def on_key_press(self, key, modifiers):
         if key == arcade.key.W or key == arcade.key.UP:
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             if self.macchina1.angle > 180:
                 print("MORTO")
             else:
@@ -313,6 +325,16 @@ class MyGame(arcade.Window):
                 return print("MORTO")
 >>>>>>> Stashed changes
             else:
+=======
+            if self.macchina1.angle > 180 or self.macchina1.angle < -180:
+                return print("MORTO")
+            else:
+                self.up_pressed = True
+        elif key == arcade.key.S or key == arcade.key.DOWN:
+            if self.macchina1.angle > 180 or self.macchina1.angle < -180:
+                return print("MORTO")
+            else:
+>>>>>>> Stashed changes
                 self.down_pressed = True
         elif key == arcade.key.A or key == arcade.key.LEFT:
             self.left_pressed = True
