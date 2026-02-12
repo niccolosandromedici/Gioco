@@ -17,6 +17,7 @@ class MyGame(arcade.Window):
     
 
     def __init__(self, width, height, title):
+
         super().__init__(width, height, title)
 
         self.macchina_list = arcade.SpriteList()
@@ -241,26 +242,6 @@ class MyGame(arcade.Window):
         change_angle : int | float = 0
         
         if self.up_pressed:
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-            if self.macchina1.angle > 180:
-                print("morto")
-            else:
-                change_angle -= self.velocita_angle
-        if self.down_pressed:
-            if self.macchina1.angle > 180:
-                print("morto")
-=======
-            if self.macchina1.angle > 180 or self.macchina1.angle < -180:
-                return print("morto")
-            else:
-                change_angle -= self.velocita_angle
-        if self.down_pressed:
-            if self.macchina1.angle > 180 or self.macchina1.angle < -180:
-                return print("morto")
->>>>>>> Stashed changes
-            else:
-=======
             if self.macchina1.angle > 180 or self.macchina1.angle < -180:
                 return print("morto")
             else:
@@ -269,7 +250,6 @@ class MyGame(arcade.Window):
             if self.macchina1.angle > 180 or self.macchina1.angle < -180:
                 return print("morto")
             else:
->>>>>>> Stashed changes
                 change_angle += self.velocita_angle
         if self.left_pressed:
             change_x -= self.velocita
@@ -293,49 +273,33 @@ class MyGame(arcade.Window):
                 #print("Diamante preso! Punteggio:", self.conta_diamanti_presi)
 
 
+
+
         # Applica movimento
         self.macchina1.center_x += change_x
         self.macchina1.center_y += change_y
         self.macchina1.angle += change_angle
+        
 
+        
         #aggiornamento x delle scritte
         self.testo_score_monete.x += change_x
         self.testo_score_diamanti.x += change_x
+       
        
 
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.W or key == arcade.key.UP:
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
             if self.macchina1.angle > 180:
                 print("MORTO")
             else:
                 self.up_pressed = True
         elif key == arcade.key.S or key == arcade.key.DOWN:
-            if self.macchina1.angle > 180:
-                print("MORTO")
-=======
             if self.macchina1.angle > 180 or self.macchina1.angle < -180:
                 return print("MORTO")
             else:
                 self.up_pressed = True
-        elif key == arcade.key.S or key == arcade.key.DOWN:
-            if self.macchina1.angle > 180 or self.macchina1.angle < -180:
-                return print("MORTO")
->>>>>>> Stashed changes
-            else:
-=======
-            if self.macchina1.angle > 180 or self.macchina1.angle < -180:
-                return print("MORTO")
-            else:
-                self.up_pressed = True
-        elif key == arcade.key.S or key == arcade.key.DOWN:
-            if self.macchina1.angle > 180 or self.macchina1.angle < -180:
-                return print("MORTO")
-            else:
->>>>>>> Stashed changes
-                self.down_pressed = True
         elif key == arcade.key.A or key == arcade.key.LEFT:
             self.left_pressed = True
             #if not self.suono_motore.is_playing:
