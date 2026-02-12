@@ -238,9 +238,15 @@ class MyGame(arcade.Window):
         change_angle : int | float = 0
         
         if self.up_pressed:
-            change_angle -= self.velocita_angle
+            if self.macchina1.angle > 180:
+                print("morto")
+            else:
+                change_angle -= self.velocita_angle
         if self.down_pressed:
-            change_angle += self.velocita_angle
+            if self.macchina1.angle > 180:
+                print("morto")
+            else:
+                change_angle += self.velocita_angle
         if self.left_pressed:
             change_x -= self.velocita
         if self.right_pressed:
@@ -261,35 +267,30 @@ class MyGame(arcade.Window):
                 collisioni_macchina_collezzionabili[0].remove_from_sprite_lists()
                 self.crea_monete(tipo = "diamante")
                 #print("Diamante preso! Punteggio:", self.conta_diamanti_presi)
-        # Gestione collisioni tra collezionabili
-        # collisioni_collezionabili = arcade.check_for_collision_with_lists(self.moneta_list(tipo = "oro"), self.moneta_list(tipo = "diamante"))
-        # if len(collisioni_collezionabili) > 0 :
-        #     if collisioni_collezionabili[0]:
-        #         collisioni_collezionabili[0].remove_from_sprite_lists()
-                
+
+
         # Applica movimento
         self.macchina1.center_x += change_x
         self.macchina1.center_y += change_y
+        self.macchina1.angle += change_angle
 
         #aggiornamento x delle scritte
         self.testo_score_monete.x += change_x
         self.testo_score_diamanti.x += change_x
-        self.macchina1.angle += change_angle
+       
 
-    #     if self.macchina1.angle > 180:
-    #         self.morto()
-    #     else:
-    #         self.macchina1.angle += change_angle
-
-
-    # def morto(self):
-    #     print("morto")
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.W or key == arcade.key.UP:
-            self.up_pressed = True
+            if self.macchina1.angle > 180:
+                print("MORTO")
+            else:
+                self.up_pressed = True
         elif key == arcade.key.S or key == arcade.key.DOWN:
-            self.down_pressed = True
+            if self.macchina1.angle > 180:
+                print("MORTO")
+            else:
+                self.down_pressed = True
         elif key == arcade.key.A or key == arcade.key.LEFT:
             self.left_pressed = True
             #if not self.suono_motore.is_playing:
@@ -308,9 +309,15 @@ class MyGame(arcade.Window):
 
     def on_key_release(self, key, modifiers):
         if key == arcade.key.W or key == arcade.key.UP:
-            self.up_pressed = False
+            if self.macchina1.angle > 180:
+                print("MORTO")
+            else:
+                self.up_pressed = False
         elif key == arcade.key.S or key == arcade.key.DOWN:
-            self.down_pressed = False
+            if self.macchina1.angle > 180:
+                print("MORTO")
+            else:
+                self.down_pressed = False
         elif key == arcade.key.A or key == arcade.key.LEFT:
             self.left_pressed = False
             #if self.suono_motore.is_playing:
