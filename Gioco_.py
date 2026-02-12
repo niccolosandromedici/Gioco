@@ -5,6 +5,9 @@ import random
 #https://api.arcade.academy/en/stable/tutorials/platform_tutorial/step_07.html
 #sito con tutta la documentazione necessaria per il mio gioco
 
+#https://api.arcade.academy/en/3.3.3/example_code/background_parallax.html
+#sito per errore di parallasse
+
 
 class MyGame(arcade.Window):
     SCREEN_WIDTH : int = 900
@@ -238,13 +241,13 @@ class MyGame(arcade.Window):
         change_angle : int | float = 0
         
         if self.up_pressed:
-            if self.macchina1.angle > 180:
-                print("morto")
+            if self.macchina1.angle > 180 or self.macchina1.angle < -180:
+                return print("morto")
             else:
                 change_angle -= self.velocita_angle
         if self.down_pressed:
-            if self.macchina1.angle > 180:
-                print("morto")
+            if self.macchina1.angle > 180 or self.macchina1.angle < -180:
+                return print("morto")
             else:
                 change_angle += self.velocita_angle
         if self.left_pressed:
@@ -282,13 +285,13 @@ class MyGame(arcade.Window):
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.W or key == arcade.key.UP:
-            if self.macchina1.angle > 180:
-                print("MORTO")
+            if self.macchina1.angle > 180 or self.macchina1.angle < -180:
+                return print("MORTO")
             else:
                 self.up_pressed = True
         elif key == arcade.key.S or key == arcade.key.DOWN:
-            if self.macchina1.angle > 180:
-                print("MORTO")
+            if self.macchina1.angle > 180 or self.macchina1.angle < -180:
+                return print("MORTO")
             else:
                 self.down_pressed = True
         elif key == arcade.key.A or key == arcade.key.LEFT:
