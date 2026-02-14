@@ -4,7 +4,7 @@ import random
 from Muri import Muri_
 
 
-#tommy è stato qua
+
 #https://api.arcade.academy/en/stable/tutorials/platform_tutorial/step_07.html
 #sito con tutta la documentazione necessaria per il mio gioco
 
