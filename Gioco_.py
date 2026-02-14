@@ -245,12 +245,12 @@ class MyGame(arcade.Window):
             if self.macchina1.angle > 180 or self.macchina1.angle < -180:
                 return print("morto")
             else:
-                change_angle += self.velocita_angle
+                change_angle -= self.velocita_angle
         if self.down_pressed:
             if self.macchina1.angle > 180 or self.macchina1.angle < -180:
                 return print("morto")
             else:
-                change_angle -= self.velocita_angle
+                change_angle += self.velocita_angle
         if self.left_pressed:
             change_x -= self.velocita
         if self.right_pressed:
