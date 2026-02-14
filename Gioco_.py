@@ -290,15 +290,9 @@ class MyGame(arcade.Window):
 
     def on_key_press(self, key, modifiers):
         if key == arcade.key.W or key == arcade.key.UP:
-            if self.macchina1.angle > 180 or self.macchina1.angle < -180:
-                return print("MORTO")
-            else:
-                self.up_pressed = True
+            self.up_pressed = True
         elif key == arcade.key.S or key == arcade.key.DOWN:
-            if self.macchina1.angle > 180 or self.macchina1.angle < -180:
-                return print("MORTO")
-            else:
-                self.down_pressed = True
+            self.down_pressed = True
         elif key == arcade.key.A or key == arcade.key.LEFT:
             self.left_pressed = True
             #if not self.suono_motore.is_playing:
@@ -317,15 +311,9 @@ class MyGame(arcade.Window):
 
     def on_key_release(self, key, modifiers):
         if key == arcade.key.W or key == arcade.key.UP:
-            if self.macchina1.angle > 180 or self.macchina1.angle < -180:
-                print("MORTO")
-            else:
-                self.up_pressed = False
+            self.up_pressed = False
         elif key == arcade.key.S or key == arcade.key.DOWN:
-            if self.macchina1.angle > 180 or self.macchina1.angle < -180:
-                print("MORTO")
-            else:
-                self.down_pressed = False
+            self.down_pressed = False
         elif key == arcade.key.A or key == arcade.key.LEFT:
             self.left_pressed = False
             #if self.suono_motore.is_playing:
