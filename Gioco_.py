@@ -1,7 +1,8 @@
 import arcade
 import os
 import random
-import Muri
+from Muri import Muri_
+
 
 #https://api.arcade.academy/en/stable/tutorials/platform_tutorial/step_07.html
 #sito con tutta la documentazione necessaria per il mio gioco
@@ -26,8 +27,8 @@ class MyGame(arcade.Window):
         
         #suono
         self.suono_motore = arcade.load_sound("./immagini/audio_motore.mp3")
-        #scala
-        self.tile_scaling : int | float = 0.5
+        # #scala
+        # self.tile_scaling : int | float = 0.5
         #fisica
         self.gravity : int | float = 1
         self.jump_speed : int | float = 20
@@ -54,29 +55,29 @@ class MyGame(arcade.Window):
         self.right_pressed : bool = False
 
         
-        # SpriteList for our boxes and ground
-        # Putting our ground and box Sprites in the same SpriteList
-        # will make it easier to perform collision detection against
-        # them later on. Setting the spatial hash to True will make
-        # collision detection much faster if the objects in this
-        # SpriteList do not move.
-        self.wall_list = arcade.SpriteList(use_spatial_hash = True)
+        # # SpriteList for our boxes and ground
+        # # Putting our ground and box Sprites in the same SpriteList
+        # # will make it easier to perform collision detection against
+        # # them later on. Setting the spatial hash to True will make
+        # # collision detection much faster if the objects in this
+        # # SpriteList do not move.
+        # self.wall_list = arcade.SpriteList(use_spatial_hash = True)
 
-        # Create the ground
-        # This shows using a loop to place multiple sprites horizontally
-        for x in range(-350, 100000, 64):
-            ground = arcade.Sprite(":resources:images/tiles/grassMid.png", scale = self.tile_scaling)
-            ground.center_x = x
-            ground.center_y = 250
-            #ground.angle = random.randint(0, 180)
-            self.wall_list.append(ground)
+        # # Create the ground
+        # # This shows using a loop to place multiple sprites horizontally
+        # for x in range(-350, 100000, 64):
+        #     ground = arcade.Sprite(":resources:images/tiles/grassMid.png", scale = self.tile_scaling)
+        #     ground.center_x = x
+        #     ground.center_y = 250
+        #     #ground.angle = random.randint(0, 180)
+        #     self.wall_list.append(ground)
         
 
-        for y in range(-10000, 10000, 64):
-            start_wall = arcade.Sprite(":resources:images/tiles/grassMid.png", scale = self.tile_scaling)
-            start_wall.center_x = -385
-            start_wall.center_y = y
-            self.wall_list.append(start_wall)
+        # for y in range(-10000, 10000, 64):
+        #     start_wall = arcade.Sprite(":resources:images/tiles/grassMid.png", scale = self.tile_scaling)
+        #     start_wall.center_x = -385
+        #     start_wall.center_y = y
+        #     self.wall_list.append(start_wall)
 
 
 
@@ -88,9 +89,9 @@ class MyGame(arcade.Window):
         # platforms parameter that is intended for moving platforms.
         # If a platform is supposed to move, and is added to the walls list,
         # it will not be moved.
-        self.physics_engine = arcade.PhysicsEnginePlatformer(self.macchina1, walls = self.wall_list, gravity_constant = self.gravity)
-        #self.physics_engine = arcade.PhysicsEnginePlatformer(self.macchina2, walls = self.wall_list, gravity_constant = self.gravity)
-        #self.physics_engine = arcade.PhysicsEnginePlatformer(self.macchina3, walls = self.wall_list, gravity_constant = self.gravity)
+        self.physics_engine = arcade.PhysicsEnginePlatformer(self.macchina1, walls = Muri_().wall_list, gravity_constant = self.gravity)
+        #self.physics_engine = arcade.PhysicsEnginePlatformer(self.macchina2, walls = Muri_().wall_list, gravity_constant = self.gravity)
+        #self.physics_engine = arcade.PhysicsEnginePlatformer(self.macchina3, walls = Muri_().wall_list, gravity_constant = self.gravity)
 
         
         
@@ -219,7 +220,8 @@ class MyGame(arcade.Window):
         self.macchina_list.draw()
         self.moneta_list.draw()
 
-        self.wall_list.draw()
+        
+        Muri_().draw()
         self.camera.use()
         self.testo_score_monete.draw()
         self.testo_score_diamanti.draw()
