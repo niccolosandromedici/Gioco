@@ -98,11 +98,11 @@ class Macchina1(Macchina):
             if self.macchina1.angle > 180 or self.macchina1.angle < -180:
                 return print("morto")
             else:
-                self.change_angle += self.velocita_angle
+                self.change_angle += self.macchina1.velocita_angle
         if self.left_pressed:
-            self.change_x -= self.velocita
+            self.change_x -= self.macchina1.velocita
         if self.right_pressed:
-            self.change_x += self.velocita
+            self.change_x += self.macchina1.velocita
 
 
         self.macchina1.center_x += self.change_x
@@ -151,16 +151,16 @@ class Macchina2(Macchina):
             if self.macchina2.angle > 180 or self.macchina2.angle < -180:
                 return print("morto")
             else:
-                self.change_angle -= self.velocita_angle
+                self.change_angle -= self.macchina2.velocita_angle
         if self.down_pressed:
             if self.macchina2.angle > 180 or self.macchina2.angle < -180:
                 return print("morto")
             else:
-                self.change_angle += self.velocita_angle
+                self.change_angle += self.macchina2.velocita_angle
         if self.left_pressed:
-            self.change_x -= self.velocita
+            self.change_x -= self.macchina2.velocita
         if self.right_pressed:
-            self.change_x += self.velocita
+            self.change_x += self.macchina2.velocita
 
 
         self.macchina2.center_x += self.change_x
@@ -208,16 +208,16 @@ class Macchina3(Macchina):
             if self.macchina3.angle > 180 or self.macchina3.angle < -180:
                 return print("morto")
             else:
-                self.change_angle -= self.velocita_angle
+                self.change_angle -= self.macchina3.velocita_angle
         if self.down_pressed:
             if self.macchina3.angle > 180 or self.macchina3.angle < -180:
                 return print("morto")
             else:
-                self.change_angle += self.velocita_angle
+                self.change_angle += self.macchina3.velocita_angle
         if self.left_pressed:
-            self.change_x -= self.velocita
+            self.change_x -= self.macchina3.velocita
         if self.right_pressed:
-            self.change_x += self.velocita
+            self.change_x += self.macchina3.velocita
 
 
         self.macchina3.center_x += self.change_x
