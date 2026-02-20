@@ -32,17 +32,4 @@ class Muri_(arcade.Sprite):
             self.wall_list.append(start_wall)  
 
     def draw(self):
-        self.wall_list.draw() 
-
-
-
-
-
-
-
-
-
-
-
-
-
+        self.wall_list.draw()
